@@ -1,36 +1,43 @@
 import { useState, useRef } from "react";
 
 const SimpleInput = (props) => {
-  const [firstName, setFirstName] = useState("");
+  const [userName, setUserName] = useState("");
   const [nameIsValid, setNameIsValid] = useState(true);
 
+  const userInputRef = useRef();
 
-  const userRefInput = useRef();
-
-  const firstNameHandler = (event) => {
-    setFirstName(event.target.value);
+  const nameHandler = (event) => {
+    setUserName(event.target.value);
   };
 
+  
   const submitHandler = (event) => {
     event.preventDefault();
-
-    const userInput = userRefInput.current.value;
     
-    if(firstName.trim() === ""){
+    const userInput = userInputRef.current.value;
+    
+    if(userName.trim()===''){
       setNameIsValid(false)
       return;
     }
-    console.log(firstName);
-
+    console.log(userName);
+    
+    setUserName("");
   };
 
-  const userFormClasses = nameIsValid ? "form-control" : "form-control invalid";
-
+  const userInputClasses = nameIsValid? 'form-control' : 'form-control invalid';
+  
   return (
     <form onSubmit={submitHandler}>
-      <div className={userFormClasses}>
-        <label htmlFor='name'>Your Name</label>
-        <input ref={userRefInput} onChange={firstNameHandler} type='text' id='name' />
+      <div className={userInputClasses}>
+        <label htmlFor="name">Your Name</label>
+        <input
+          ref={userInputRef}
+          value={userName}
+          onChange={nameHandler}
+          type="text"
+          id="name"
+        />
       </div>
       {!nameIsValid && <p>Name must not be empty!</p>}
       <div className="form-actions">
