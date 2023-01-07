@@ -38,8 +38,8 @@ const SimpleInput = (props) => {
           type="text"
           id="name"
         />
+      {!nameIsValid && <p className={'error-text'}>Name must not be empty!</p>}
       </div>
-      {!nameIsValid && <p>Name must not be empty!</p>}
       <div className="form-actions">
         <button>Submit</button>
       </div>
