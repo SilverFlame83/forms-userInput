@@ -14,6 +14,10 @@ const SimpleInput = (props) => {
 
   const nameHandler = (event) => {
     setUserName(event.target.value);
+
+    if (event.target.value.trim() !== "") {
+      setNameIsValid(true);
+    }
   };
 
   const submitHandler = (event) => {
