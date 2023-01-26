@@ -10,23 +10,37 @@ const BasicForm = (props) => {
     reset: resetFirstNameInput,
   } = useInput((value) => value.trim() !== "");
 
+  const {
+    value: lastName,
+    isValid: lastNameIsValid,
+    hasError: lastNameHasError,
+    valueChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
+    reset: resetLastNameInput,
+  } = useInput((value) => value.trim() !== "");
+
   let userFormIsValid = false;
 
-  if (enteredFirstNameIsValid) {
-    userFormIsValid(true);
+  if (enteredFirstNameIsValid && lastNameIsValid) {
+    userFormIsValid=true;
   }
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (!enteredFirsrtName) {
+    if (!enteredFirsrtName || !lastName) {
       return;
     }
 
     resetFirstNameInput();
+    resetLastNameInput();
   };
 
   const firstNameClasses = firstNameInputHasError
+    ? "form-control invalid"
+    : "form-control";
+
+  const lastNameClasses = lastNameHasError
     ? "form-control invalid"
     : "form-control";
 
@@ -42,11 +56,20 @@ const BasicForm = (props) => {
             onBlur={firstNameBlurHandler}
             value={enteredFirsrtName}
           />
-          {firstNameInputHasError && <p className="error-text">Please enter first name!</p>}
+          {firstNameInputHasError && (
+            <p className="error-text">Please enter first name!</p>
+          )}
         </div>
-        <div className="form-control">
+        <div className={lastNameClasses}>
           <label htmlFor="name">Last Name</label>
-          <input type="text" id="name" />
+          <input
+            type="text"
+            id="name"
+            onChange={lastNameChangeHandler}
+            onBlur={lastNameBlurHandler}
+            value={lastName}
+          />
+          {lastNameHasError && <p className="error-text">Please enter last name!</p>}
         </div>
       </div>
       <div className="form-control">
