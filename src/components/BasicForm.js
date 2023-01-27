@@ -62,6 +62,7 @@ const BasicForm = (props) => {
     ? "form-control invalid"
     : "form-control";
 
+
   return (
     <form onSubmit={submitHandler}>
       <div className="control-group">
@@ -92,7 +93,7 @@ const BasicForm = (props) => {
           )}
         </div>
       </div>
-      <div className="form-control">
+      <div className={emailFormClass}>
         <label htmlFor="name">E-Mail Address</label>
         <input
           type="email"
